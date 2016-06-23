@@ -4,7 +4,14 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
+    <body ng-app="HelpApp">
         <h1>Hello World!</h1>
+        <div ng-controller="ChamadoController as controller">
+            Olá {{controller.usuario}}<br>
+            1 + 2 = {{1 + 2}}
+        </div>
+
+        <script src="resources/angular.js"></script>
+        <script src="resources/help.js"></script>
     </body>
 </html>
