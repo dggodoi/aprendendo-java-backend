@@ -32,16 +32,19 @@ public class ChamadoController {
     @Path("/")
     public List<Chamado> listChamados() {
         Chamado c1 = new Chamado();
+        c1.setId(1);
         c1.setAssunto("Assunto1");
         c1.setMensagem("Mensagem1");
         c1.setStatus(Status.NOVO);
 
         Chamado c2 = new Chamado();
+        c2.setId(2);
         c2.setAssunto("Assunto2");
         c2.setMensagem("Mensagem2");
         c2.setStatus(Status.NOVO);
 
         Chamado c3 = new Chamado();
+        c3.setId(3);
         c3.setAssunto("Assunto3");
         c3.setMensagem("Mensagem3");
         c3.setStatus(Status.FECHADO);

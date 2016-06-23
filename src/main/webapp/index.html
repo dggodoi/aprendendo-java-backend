@@ -5,13 +5,55 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body ng-app="HelpApp">
-        <h1>Hello World!</h1>
         <div ng-controller="ChamadoController as controller">
-            Olá {{controller.usuario}}<br>
-            1 + 2 = {{1 + 2}}
-        </div>
+            <h1>HELP APP</h1>
+            <h5>{{controller.usuario}}</h5>
 
-        <script src="resources/angular.js"></script>
-        <script src="resources/help.js"></script>
-    </body>
+            <div style="border: 1px solid black;"
+                 ng-show="controller.chamado">
+                <label for="chamadoId">ID: </label>
+                <input type="number" 
+                       id="chamadoId" 
+                       ng-model="controller.chamado.id"
+                       disabled><br>
+
+                <label for="assunto">Assunto: </label>
+                <input type="text" id="assunto" ng-model="controller.chamado.assunto"><br>
+
+                <label for="mensagem">Mensagem: </label>
+                <textarea rows="4" id="mensagem" ng-model="controller.chamado.mensagem"></textarea><br>
+
+                <button type="button" data-ng-click="controller.salvar()">Salvar</button>
+                <button type="button" data-ng-click="controller.chamado = undefined">Cancelar</button>
+            </div>
+
+            <div style="border: 1px solid black;"
+                 data-ng-show="!controller.chamado">
+                <button type="button" data-ng-click="controller.novo()">Novo Chamado</button><br>
+                <br>
+                <table border="1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Assunto</th>
+                        <th>Mensagem</th>
+                        <th>Opções</th>
+                    </tr>
+                    <tr data-ng-repeat="chamado in controller.chamados">
+                        <td>{{chamado.id}}</td>
+                        <td>{{chamado.assunto}}</td>
+                        <td>{{chamado.mensagem}}</td>
+                        <td>
+                            <button type="button" data-ng-click="controller.alterar(chamado)">Alterar</button>
+                            <button type="button" data-ng-click="controller.deletar(chamado)">Excluir</button>
+                            <button type="button" data-ng-click="controller.concluir(chamado)">Concluir</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="resources/angular.js"></script>
+    <script src="resources/help.js"></script>
+</body>
 </html>
