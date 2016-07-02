@@ -6,9 +6,13 @@
 package io.github.dggodoi.aprendendo.java.backend.controllers;
 
 import io.github.dggodoi.aprendendo.java.backend.data.Chamado;
+import io.github.dggodoi.aprendendo.java.backend.data.ChamadoDAO;
 import io.github.dggodoi.aprendendo.java.backend.data.Status;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,6 +21,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,65 +36,87 @@ public class ChamadoController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
     public List<Chamado> listChamados() {
-        Chamado c1 = new Chamado();
-        c1.setId(1);
-        c1.setAssunto("Assunto1");
-        c1.setMensagem("Mensagem1");
-        c1.setStatus(Status.NOVO);
-
-        Chamado c2 = new Chamado();
-        c2.setId(2);
-        c2.setAssunto("Assunto2");
-        c2.setMensagem("Mensagem2");
-        c2.setStatus(Status.NOVO);
-
-        Chamado c3 = new Chamado();
-        c3.setId(3);
-        c3.setAssunto("Assunto3");
-        c3.setMensagem("Mensagem3");
-        c3.setStatus(Status.FECHADO);
-
-        List<Chamado> chamados = new ArrayList<>();
-        chamados.add(c1);
-        chamados.add(c2);
-        chamados.add(c3);
-
-        return chamados;
+        try {
+            ChamadoDAO chamadoDAO = new ChamadoDAO();
+            return chamadoDAO.listar();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ChamadoController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}/")
     public Chamado getChamado(@PathParam("id") long id) {
-        Chamado c1 = new Chamado();
-        c1.setId(id);
-        c1.setAssunto("Assunto" + id);
-        c1.setMensagem("Mensagem" + id);
-        c1.setStatus(Status.NOVO);
-
-        return c1;
+        try {
+            ChamadoDAO chamadoDAO = new ChamadoDAO();
+            return chamadoDAO.selecionar(id);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ChamadoController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/")
     public Response create(Chamado chamado) {
-        System.out.println(chamado.toString());
-        return Response.status(Response.Status.OK).build();
+        try {
+            chamado.setStatus(Status.NOVO);
+
+            ChamadoDAO chamadoDAO = new ChamadoDAO();
+            chamadoDAO.inserir(chamado);
+            return Response.status(Response.Status.OK).build();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ChamadoController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/")
     public Response update(Chamado chamado) {
-        System.out.println(chamado.toString());
-        return Response.status(Response.Status.OK).build();
+        try {
+            chamado.setStatus(Status.PENDENTE);
+
+            ChamadoDAO chamadoDAO = new ChamadoDAO();
+            chamadoDAO.alterar(chamado);
+            return Response.status(Response.Status.OK).build();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ChamadoController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DELETE
     @Path("{id}/")
     public Response delete(@PathParam("id") long id) {
-        System.out.println("Deletando ID: " + id);
-        return Response.status(Response.Status.OK).build();
+        try {
+            ChamadoDAO chamadoDAO = new ChamadoDAO();
+            chamadoDAO.excluir(id);
+            return Response.status(Response.Status.OK).build();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ChamadoController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PUT
+    @Path("{id}/")
+    public Response concluir(@PathParam("id") long id) {
+        try {
+            ChamadoDAO chamadoDAO = new ChamadoDAO();
+
+            Chamado c = chamadoDAO.selecionar(id);
+            c.setStatus(Status.FECHADO);
+
+            chamadoDAO.alterar(c);
+            return Response.status(Response.Status.OK).build();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ChamadoController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 }

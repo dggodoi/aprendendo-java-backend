@@ -4,7 +4,7 @@
 
     <groupId>io.github.dggodoi</groupId>
     <artifactId>aprendendo-java-backend</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <packaging>war</packaging>
 
     <name>aprendendo-java-backend</name>
@@ -33,6 +33,11 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>2.23</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.3-1104-jdbc41</version>
         </dependency>
     </dependencies>
 

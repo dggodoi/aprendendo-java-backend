@@ -52,8 +52,17 @@ angular.module("HelpApp", [])
                 });
             };
 
-            self.concluir = function () {
-                alert("TO DO");
+            self.concluir = function (chamado) {
+                self.chamado = chamado;
+
+                $http({
+                    method: 'PUT',
+                    url: urlBase + 'chamados/' + self.chamado.id + '/'
+                }).then(function successCallback(response) {
+                    self.atualizarTabela();
+                }, function errorCallback(response) {
+                    self.ocorreuErro();
+                });
             };
 
             self.ocorreuErro = function () {
@@ -72,7 +81,7 @@ angular.module("HelpApp", [])
                 });
             };
 
-            self.activate = function (){
+            self.activate = function () {
                 self.atualizarTabela();
             };
             self.activate();

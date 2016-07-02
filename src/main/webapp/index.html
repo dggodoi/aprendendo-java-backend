@@ -35,17 +35,21 @@
                     <tr>
                         <th>ID</th>
                         <th>Assunto</th>
+                        <th>Status</th>
                         <th>Mensagem</th>
                         <th>Opções</th>
                     </tr>
                     <tr data-ng-repeat="chamado in controller.chamados">
                         <td>{{chamado.id}}</td>
                         <td>{{chamado.assunto}}</td>
+                        <td>{{chamado.status}}</td>
                         <td>{{chamado.mensagem}}</td>
                         <td>
                             <button type="button" data-ng-click="controller.alterar(chamado)">Alterar</button>
                             <button type="button" data-ng-click="controller.deletar(chamado)">Excluir</button>
-                            <button type="button" data-ng-click="controller.concluir(chamado)">Concluir</button>
+                            <button type="button" 
+                                    data-ng-show="chamado.status !== 'FECHADO'"
+                                    data-ng-click="controller.concluir(chamado)">Concluir</button>
                         </td>
                     </tr>
                 </table>
