@@ -4,7 +4,7 @@
 
     <groupId>io.github.dggodoi</groupId>
     <artifactId>aprendendo-java-backend</artifactId>
-    <version>1.6</version>
+    <version>1.7</version>
     <packaging>war</packaging>
 
     <name>aprendendo-java-backend</name>
@@ -43,6 +43,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.2.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
         </dependency>
     </dependencies>
 
