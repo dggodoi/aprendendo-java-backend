@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.dggodoi.aprendendo.java.backend.data;
+package io.github.dggodoi.aprendendo.java.backend.jdbc.dao;
 
+import io.github.dggodoi.aprendendo.java.backend.data.Chamado;
+import io.github.dggodoi.aprendendo.java.backend.enumerado.chamado.Status;
 import io.github.dggodoi.aprendendo.java.backend.infra.ConexaoJDBC;
 import io.github.dggodoi.aprendendo.java.backend.infra.ConexaoPostgresJDBC;
 import java.sql.PreparedStatement;

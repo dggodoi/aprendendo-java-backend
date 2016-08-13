@@ -6,8 +6,8 @@
 package io.github.dggodoi.aprendendo.java.backend.controllers;
 
 import io.github.dggodoi.aprendendo.java.backend.data.Chamado;
-import io.github.dggodoi.aprendendo.java.backend.data.ChamadoDAO;
-import io.github.dggodoi.aprendendo.java.backend.data.Status;
+import io.github.dggodoi.aprendendo.java.backend.jdbc.dao.ChamadoDAO;
+import io.github.dggodoi.aprendendo.java.backend.enumerado.chamado.Status;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

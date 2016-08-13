@@ -4,7 +4,7 @@
 
     <groupId>io.github.dggodoi</groupId>
     <artifactId>aprendendo-java-backend</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
     <packaging>war</packaging>
 
     <name>aprendendo-java-backend</name>
@@ -38,6 +38,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.3-1104-jdbc41</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.2.Final</version>
         </dependency>
     </dependencies>
 
